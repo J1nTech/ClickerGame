@@ -4,12 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Item : MonoBehaviour
+public class GameItem : Item
 {
-    Vector3[] corners = new Vector3[4];
-    public Vector3[] GetCorners => corners;
-    public RectTransform rect;
-
     EScrollButtonState state;
     [SerializeField] TextMeshProUGUI _titletxt;
     public TextMeshProUGUI TitleTxt => _titletxt;
@@ -21,28 +17,14 @@ public class Item : MonoBehaviour
     [SerializeField] Image _itemImg;
     [SerializeField] Button itemPurchaseBtn;
 
+    Vector3[] corners = new Vector3[4];
+    public Vector3[] GetCorners => corners;
+    public RectTransform rect;
     System.Numerics.BigInteger cost;
     private void Awake()
     {
-        SetCorners();
         itemPurchaseBtn.onClick.AddListener(OnButton_Click);
     }
-
-    public Vector3 GetMaxCorner()
-    {
-        return corners[2];
-    }
-    public Vector3 GetMinCorners()
-    {
-        return corners[0];
-    }
-
-    public void SetCorners()
-    {
-        rect.GetWorldCorners(corners);
-    }
-
-    #region Erase This Later
     void SetItem(string titleTxt, string itemInfoTxt, int cost, Sprite coinImg, Sprite itemImg)
     {
         _titletxt.text = titleTxt;
@@ -51,6 +33,7 @@ public class Item : MonoBehaviour
         _coinImg.sprite = coinImg;
         _itemImg.sprite = itemImg;
     }
+
     public void SetTitle(string titleString)
     {
         orderNum = int.Parse(titleString);
@@ -125,7 +108,4 @@ public class Item : MonoBehaviour
                 break;
         }
     }
-    #endregion
-
-
 }
